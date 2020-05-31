@@ -19,6 +19,25 @@ class BST {
     }
   }
 
+  delete(toDelete) {
+    if(!this.search(toDelete)) {
+      return;
+    }
+    
+  }
+
+  search(target, current = this.root) {
+    if(!current) {
+      return false;
+    } else {
+      if(current.val === target) {
+        return true;
+      }
+      return (current.val > target) ? this.search(target, current.left) : 
+      this.search(target, current.right);
+    }
+  }
+
   //Basic method for printing.
 
   print(current = this.root) {
@@ -66,6 +85,10 @@ testBST.insert(4)
 testBST.insert(7)
 testBST.insert(13)
 
-testBST.print()
+// testBST.print()
+
+console.log(testBST.search(3))
+console.log(testBST.search(9999))
+console.log(testBST.search(14))
 
 // console.log(testBST.root)
