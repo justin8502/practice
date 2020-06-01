@@ -1,20 +1,16 @@
-// Input: A graph Graph and a starting vertex root of Graph
+// Input: A graph G and a vertex v of G
 
-// Output: Goal state. The parent links trace the shortest path back to root
+// Output: All vertices reachable from v labeled as discovered
 
-// 1  procedure BFS(G, start_v) is
-// 2      let Q be a queue
-// 3      label start_v as discovered
-// 4      Q.enqueue(start_v)
-// 5      while Q is not empty do
-// 6          v := Q.dequeue()
-// 7          if v is the goal then
-// 8              return v
-// 9          for all edges from v to w in G.adjacentEdges(v) do
-// 10             if w is not labeled as discovered then
-// 11                 label w as discovered
-// 12                 w.parent := v
-// 13                 Q.enqueue(w)
+// procedure DFS-iterative(G, v) is
+//     let S be a stack
+//     S.push(v)
+//     while S is not empty do
+//         v = S.pop()
+//         if v is not labeled as discovered then
+//             label v as discovered
+//             for all edges from v to w in G.adjacentEdges(v) do 
+//                 S.push(w)
 
 // Imported from binarytree.js
 
@@ -45,34 +41,25 @@ class BST {
     }
   }
 
-  bfsPrint() {
-    let searchQueue = [];
+  dfsPrint() {
+    let searchStack = [];
     if(this.root.val === undefined) {
       return;
     }
-    let newLevel = this.root;
-    searchQueue.push(this.root);
-    while(searchQueue.length > 0) {
-      let curr = searchQueue.shift();
-      if(curr === newLevel){
-        console.log();
-        newLevel = null;
-      }
+    searchStack.push(this.root);
+    while(searchStack.length > 0) {
+      let curr = searchStack.shift();
       process.stdout.write(curr.val + " ");
-      if(curr.left) {
-        if(!newLevel) {
-          newLevel = curr.left;
+      if(!curr.right && !curr.left && searchStack.length > 1) {
+        console.log();
+      } else {
+        if(curr.right) {
+          searchStack.unshift(curr.right)
         }
-        searchQueue.push(curr.left)
-      }
-      if(curr.right) {
-        if(!newLevel) {
-          newLevel = curr.left;
+        if(curr.left) {
+          searchStack.unshift(curr.left)
         }
-        searchQueue.push(curr.right)
       }
-      // console.log(curr);
-      // console.log(searchQueue);
     }
   }
 }
@@ -117,4 +104,4 @@ testBST.insert(13)
 
 // console.log(testBST.root)
 
-testBST.bfsPrint()
+testBST.dfsPrint()
