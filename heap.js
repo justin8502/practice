@@ -41,6 +41,10 @@ class Heap {
 
   delete() {
     // console.log("Popping element off the heap...");
+    if(this.heapArr.length <= 1) {
+      let lastVal = this.heapArr.pop();
+      return lastVal;
+    }
     let lastVal = this.heapArr.pop();
     let returnVal = this.heapArr[0];
     this.heapArr[0] = lastVal;
@@ -157,10 +161,19 @@ console.log("Highest Element: " + testHeap.delete());
 testHeap.print();
 console.log("Highest Element: " + testHeap.delete());
 testHeap.print();
-// testHeap.delete();
-// testHeap.print();
-// testHeap.delete();
-// testHeap.print();
 
 console.log("Current heap structure: ")
+testHeap2.print();
+
+console.log("Lowest Element: " + testHeap2.delete());
+testHeap2.print();
+console.log("Lowest Element: " + testHeap2.delete());
+testHeap2.print();
+console.log("Lowest Element: " + testHeap2.delete());
+testHeap2.print();
+console.log("Lowest Element: " + testHeap2.delete());
+testHeap2.print();
+console.log("Lowest Element: " + testHeap2.delete());
+testHeap2.print();
+console.log("Lowest Element: " + testHeap2.delete());
 testHeap2.print();
