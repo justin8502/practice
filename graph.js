@@ -26,17 +26,21 @@ class Graph {
     let explored = [];
     let toExplore = [];
     toExplore.push(this.nodes[0])
-    while(toExplore) {
-      let topElem = toExplore.pop()
-      console.log(topElem)
-      let newElem = topElem.getEdges().map((item) => {
-        if(!explored.includes(item)) {
-          return item;
-        }
-      })
-      console.log(newElem);
+    while(toExplore.length > 0) {
+      let topElem = toExplore.shift();
+      if(explored.includes(topElem)) {
+        break;
+      }
       explored.push(topElem);
-      toExplore.push.apply(newElem);
+      console.log("Discovered: " + topElem.getVal())
+      let newElem = topElem.getEdges().filter((item) => 
+        !explored.includes(item));
+      console.log("Explored Nodes: " + explored.map((node) => {
+        return node.getVal();
+      }))
+      for(let i = 0; i < newElem.length; i++) {
+        toExplore.push(newElem[i])
+      }
     }
     return;
   }
@@ -97,7 +101,7 @@ testNodes[2].addUndirectedEdge(testNodes[4]);
 // }
 
 testGraph.setNodes(testNodes);
-// testGraph.bfs();
+testGraph.bfs();
 
-console.log(testGraph);
-console.log(testNodes);
+// console.log(testGraph);
+// console.log(testNodes);
