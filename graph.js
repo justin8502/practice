@@ -44,6 +44,29 @@ class Graph {
     }
     return;
   }
+
+  dfs() {
+    let explored = [];
+    let toExplore = [];
+    toExplore.push(this.nodes[0])
+    while(toExplore.length > 0) {
+      let topElem = toExplore.pop();
+      if(explored.includes(topElem)) {
+        break;
+      }
+      explored.push(topElem);
+      console.log("Discovered: " + topElem.getVal())
+      let newElem = topElem.getEdges().filter((item) => 
+        !explored.includes(item));
+      console.log("Explored Nodes: " + explored.map((node) => {
+        return node.getVal();
+      }))
+      for(let i = 0; i < newElem.length; i++) {
+        toExplore.push(newElem[i])
+      }
+    }
+    return;
+  }
 }
 
 class Node {
